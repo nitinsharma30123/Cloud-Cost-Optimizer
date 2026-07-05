@@ -1,0 +1,9 @@
+/* Index CSS - Clean Reset */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #0a0e1a;
+  color-scheme: dark;
+}
