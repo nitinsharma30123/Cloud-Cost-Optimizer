@@ -135,9 +135,14 @@ function App() {
         engineUsed: res.engineUsed
       });
     } catch (err) {
-      console.error(err);
-      alert("Failed to connect to backend server. Make sure node backend/server.js is running.");
-    }
+  console.error("Fetch Error:", err);
+
+  if (err instanceof Error) {
+    alert(err.message);
+  } else {
+    alert(JSON.stringify(err));
+  }
+}
     setLoading(false);
   };
 
