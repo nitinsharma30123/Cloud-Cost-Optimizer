@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 
-const API_BASE = 'http://cloud-cost-optimizer-2-ia6j.onrender.com/api';
+const API_BASE = 'https://cloud-cost-optimizer-2-ia6j.onrender.com/api';
 
 
 // Predefined cloud budget items
