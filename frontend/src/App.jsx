@@ -128,7 +128,12 @@ function App() {
           engine
         })
       });
-      const res = await response.json();
+      if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(`HTTP ${response.status}: ${errorText}`);
+}
+
+const res = await response.json();
       setPlacementResults(res.data);
       setExecutionLog({
         timeMs: parseFloat((performance.now() - start).toFixed(2)),
