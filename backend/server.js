@@ -213,6 +213,23 @@ app.post('/api/route', async (req, res) => {
         data: result
     });
 });
+// ================= HOME ROUTE =================
+app.get("/", (req, res) => {
+    res.status(200).json({
+        success: true,
+        message: "🚀 Cloud Cost Optimizer Backend is Running",
+        project: "Cloud Cost Optimizer",
+        version: "1.0.0",
+        author: "Nitin Sharma",
+        endpoints: {
+            placement: "/api/placement",
+            schedule: "/api/schedule",
+            budget: "/api/budget",
+            route: "/api/route"
+        }
+    });
+});
+
 
 // Compile binary on start if compiler exists
 compileCppBinary().then(() => {
