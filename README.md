@@ -34,7 +34,7 @@ cd ../frontend
 npm install
 npm run dev
 ```
-Open **https://cloudcloudoptimizer.com** in your web browser.
+Open **https://cloudcloudoptimizer.netlify.app/** in your web browser.
 
 ---
 
