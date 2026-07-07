@@ -39,6 +39,15 @@ function compileCppBinary() {
 
 // Check C++ binary status
 async function getEngine(requestedEngine) {
+
+    // If running on Linux (Render), always use JavaScript
+    if (process.platform === "linux") {
+        return {
+            name: "js (Linux)",
+            run: false
+        };
+    }
+
     if (requestedEngine === 'js') {
         return { name: 'js', run: false };
     }
@@ -47,15 +56,14 @@ async function getEngine(requestedEngine) {
         return { name: 'cpp', run: true };
     }
 
-    // Try compiling once
     const compiled = await compileCppBinary();
+
     if (compiled && fs.existsSync(exePath)) {
         return { name: 'cpp', run: true };
     }
 
     return { name: 'js (fallback)', run: false };
 }
-
 // Subprocess execution wrapper
 function runCppSubprocess(task, stdinText) {
     return new Promise((resolve, reject) => {
@@ -235,11 +243,25 @@ app.get("/", (req, res) => {
 });
 
 
-// Compile binary on start if compiler exists
-compileCppBinary().then(() => {
+// Start Server
+if (process.platform === "linux") {
+
+    console.log("Running on Linux - JavaScript engine");
+
     app.listen(PORT, () => {
         console.log(`===================================================`);
         console.log(` Cloud Cost Optimizer Backend is running on port ${PORT}`);
         console.log(`===================================================`);
     });
-});
+
+} else {
+
+    compileCppBinary().then(() => {
+        app.listen(PORT, () => {
+            console.log(`===================================================`);
+            console.log(` Cloud Cost Optimizer Backend is running on port ${PORT}`);
+            console.log(`===================================================`);
+        });
+    });
+
+}
